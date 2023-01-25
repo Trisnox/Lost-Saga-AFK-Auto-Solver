@@ -1,3 +1,9 @@
+
+
+https://user-images.githubusercontent.com/66292369/214657905-d0662b63-b1b0-4a06-8805-c10d4d7e0227.mp4
+
+
+
 # Lost-Saga-AFK-Auto-Solver
 Macro untuk menyelesaikan mtk yang disebabkan oleh afk. Sebagai alternatif untuk rtl.
 
