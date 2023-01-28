@@ -10,7 +10,7 @@ import pynput
 import pytesseract
 import time
 import tkinter as tk
-import win32gui
+import win32gui, win32com.client
 from PIL import Image, ImageGrab, ImageTk
 from tkinter import filedialog, ttk
 
@@ -29,6 +29,7 @@ input_process = None
 main_process = None
 toggle = False
 pup_up = None
+pynput_keyboard = None
 
 with open('config.json', 'r') as f:
     config: dict = json.load(f)
@@ -89,8 +90,13 @@ def on_release(key):
         pass
 
 def main():
+    global config
+    global pynput_keyboard
     print('Script telah dimulai')
     pytesseract.pytesseract.tesseract_cmd = config['tesseract']
+    u_input = config['input']
+
+    pynput_keyboard = pynput.keyboard.Controller()
 
     while True:
         time.sleep(config['interval'])
@@ -101,9 +107,14 @@ def main():
             continue
         
         ans = str(sum(tuple(map(int, res))))
-        pydirectinput.typewrite(ans, interval=0.025)
-        time.sleep(.1)
-        pydirectinput.press('enter')
+        if u_input == 'directinput':
+            pydirectinput.typewrite(ans, interval=0.025)
+            time.sleep(.1)
+            pydirectinput.press('enter')
+        else:
+            pynput_keyboard.type(ans)
+            time.sleep(.1)
+            pynput_keyboard.tap(pynput.keyboard.Key.enter)
 
 def math_loop():
     img = get_win_ss()
@@ -136,7 +147,11 @@ def get_win_ss():
     lso = [(hwnd, title) for hwnd, title in winlist if 'lost saga in time' in title.lower()]
     lso = lso[0]
     hwnd = lso[0]
-
+    
+    # fix fullscreen problem
+    shell = win32com.client.Dispatch("WScript.Shell")
+    shell.SendKeys('%')
+    
     win32gui.SetForegroundWindow(hwnd)
     bbox = win32gui.GetWindowRect(hwnd)
     img = ImageGrab.grab(bbox)
@@ -146,6 +161,7 @@ def get_win_ss():
         return False
 
 def pre_crop(img):
+    global config
     if not config['window'] == 'full': # windowed mode
         w, h = img.size
         if config['resolution'] == '800x600':
@@ -234,6 +250,8 @@ def ocr():
     return text
 
 def ocr_check(result):
+    global config
+    global pynput_keyboard
     filtered = result.split('+')
     try:
         num1 = filtered[0]
@@ -242,9 +260,15 @@ def ocr_check(result):
         int(num2)
     except (ValueError, IndexError):
         print('OCR gagal mengidentifikasi seluruh nomor, mencoba ulang')
-        pydirectinput.press('1')
-        time.sleep(.1)
-        pydirectinput.press('enter')
+        u_input = config['input']
+        if u_input == 'directinput':
+            pydirectinput.press('1')
+            time.sleep(.1)
+            pydirectinput.press('enter')
+        else:
+            pynput_keyboard.tap('1')
+            time.sleep(.1)
+            pynput_keyboard.tap(pynput.keyboard.Key.enter)
         return False
 
     if len(num1) >= 3:
@@ -263,6 +287,8 @@ def toggle_script():
     global window_input
     global resolution_input
     global toggle_button
+
+    global config
 
     if not toggle:
         tesseract_loc.set(tesseract_entry.get())
@@ -333,9 +359,18 @@ def test_input():
     input_process.start()
 
 def the_actual_input():
+    # oversight
+    # config in this context is never dumped again and not refreshed, this is because I can't access tkinter outside multiprocess
+    global config
     time.sleep(5)
-    pydirectinput.press('enter')
-    pydirectinput.typewrite('abc123', interval=0.05)
+    u_input = config['input']
+    if u_input == 'directinput':
+        pydirectinput.press('enter')
+        pydirectinput.typewrite('abc123', interval=0.05)
+    else:
+        controller = pynput.keyboard.Controller()
+        controller.tap(pynput.keyboard.Key.enter)
+        controller.type('abc123')
 
 def test_screenshot():
     tk.messagebox.showinfo(message='Setelah klik ok, fokuskan window ke Lost Saga lalu tunggu beberapa detik. Setelah lebih dari 5/6 detik, screenshot akan muncul di folder img')
@@ -357,17 +392,18 @@ if __name__ == '__main__': # stupid multiprocessing
     window = tk.Tk()
     s = ttk.Style(window)
 
-    try:
-        s.theme_use('vista')
-    except Exception:
-        pass
+    s.configure('TFrame', background = '#0D1117')
+    s.configure('TLabel', background = '#0D1117', foreground = '#E5E5E5')
+    s.configure('TRadiobutton', background = '#0D1117', foreground = '#E5E5E5')
+    s.configure('TEntry', background = '#0D1117', foreground = 'black')
+    s.configure('TButton', background = '#0D1117')
 
     window.iconbitmap('img/sire icon.ico')
     window.title('AFK solver')
     tk.Grid.columnconfigure(window, 0, weight=1)
     tk.Grid.rowconfigure(window, 0, weight=1)
 
-    mainframe = tk.Frame(window)
+    mainframe = ttk.Frame(window)
     mainframe.grid(column=0, row=0, sticky=tk.N+tk.W+tk.E+tk.S)
 
     for row_index in range(10):
@@ -438,7 +474,10 @@ if __name__ == '__main__': # stupid multiprocessing
     ss_test_button = ttk.Button(mainframe, text='Test screenshot', width=15, command=lambda:test_screenshot())
     ss_test_button.grid(row=9, column=1)
 
-    version_label = ttk.Label(mainframe, text='Versi 0.2', foreground='blue', font=('', 7))
+    contact_info = ttk.Label(mainframe, text='Creator: K·#4963 (discord)\nUntuk minta bantuan/pertanyaan\nbisa langsung tanya di DM.')
+    contact_info.grid(row=10, column=1, sticky=tk.W+tk.S)
+
+    version_label = ttk.Label(mainframe, text='Versi 0.3', foreground='blue', font=('', 7))
     version_label.grid(row=12, column=1, sticky=tk.W+tk.S)
     
     resolution_input = tk.StringVar(value=config.get('resolution', '1280x720'))
