@@ -18,16 +18,16 @@ Setelah GUI muncul, atur beberapa pilihan yang sesuai dengan yang digunakan, dan
 - Resolusi otomatis
 
 # QNA
-Q: Tidak ada input (enter/text), tapi OCR berhasil.
+Q: Tidak ada input (enter/text), tapi OCR berhasil.\
 A: Coba masuk HQ, ketik sesuatu, keluar. Setelah ini biasanya akan bekerja.
 
-Q: Di test input, chat box keluar, tapi tidak ada input `abc123`.
+Q: Di test input, chat box keluar, tapi tidak ada input `abc123`.\
 A: Jika sudah melakukan solusi di atas, ini bug jika memakai `pynput` tetapi masih bekerja jika digunakan untuk menjawab mtk, lebih baik pakai `directinput`.
 
-Q: Bisa dipakai di lost saga client bahasa lain?
-A: Hanya untuk lost saga bahasa indonesia/inggris. Jika ingin pakai di client lain, screenshot kotak afk (biasanya terlihat seperti ini), crop tombol `enter` lalu tukar dengan komponen yang ada di folder `img`. Kalo masih tidak bisa mungkin harus modifikasi script.
+Q: Bisa dipakai di lost saga client bahasa lain?\
+A: Hanya untuk lost saga bahasa indonesia/inggris. Jika ingin pakai di client lain, screenshot kotak afk ([biasanya terlihat seperti ini](https://user-images.githubusercontent.com/66292369/215278517-69c7bb1f-1e73-4344-ad33-2d9b5de5663d.png)), crop tombol `enter` lalu tukar dengan komponen yang ada di folder `img`. Jika masih tidak bisa mungkin harus modifikasi script.
 
-Q: Error: `ModuleNotFoundError: No module named '...'`
+Q: Error: `ModuleNotFoundError: No module named '...'`\
 A: 2 kemungkinan.\
    1, belum install modul menggunakan `pip install -r requirements.txt`\
    2, punya lebih dari 1 versi python berbeda, bisa di cek menggunakan `py -0`, lalu gunakan versi specifik menggunakan `py -versi.python`, contoh: `py -3.10-64 main.py`.
