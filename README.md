@@ -16,6 +16,7 @@ Setelah GUI muncul, atur beberapa pilihan yang sesuai dengan yang digunakan, dan
 
 # To-do
 - Resolusi otomatis
+- Kompabilitas (saat ini hanya mtk dari afk saja yang bisa dihitung, selain dari itu kemungkinan gagal)
 
 # QNA
 Q: Tidak ada input (enter/text), tapi OCR berhasil.\
