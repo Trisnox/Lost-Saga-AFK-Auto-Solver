@@ -2,7 +2,7 @@
     "tesseract": "C:\\Program Files\\Tesseract-OCR\\tesseract.exe",
     "fix": "n",
     "input": "directinput",
-    "interval": 10.0,
+    "interval": 3.0,
     "window": "window",
     "resolution": "1280x720"
 }
