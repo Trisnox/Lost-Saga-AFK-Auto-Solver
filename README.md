@@ -7,7 +7,7 @@ https://user-images.githubusercontent.com/66292369/214657905-d0662b63-b1b0-4a06-
 # Lost-Saga-AFK-Auto-Solver
 Macro untuk menyelesaikan mtk yang disebabkan oleh afk. Sebagai alternatif untuk rtl.
 
-Setelah script dijalankan, script akan screenshot setiap beberapa detik yang ditentukan, jika menemukan box mtk maka script ini akan membaca dan menjawab pertanyaan tersebut.
+**PERINGATAN, hanya untuk mtk dari hasil lobby/speedhack saja yang bisa diproses oleh script ini. Untuk proses mtk dari afk, gunakan [versi ini](https://github.com/Trisnox/Lost-Saga-AFK-Auto-Solver)**
 
 # Cara Pemakaian
 Pergi ke [releases](https://github.com/Trisnox/Lost-Saga-AFK-Auto-Solver/releases) dan pilih versi, lalu ekstrak file. Pastikan semua package sudah di install, jika belum jalankan cmd di folder tersebut lalu ketik `pip install -U -r requirements.txt` untuk install semua package yang dibutuhkan. Setelah itu install juga [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki) dan tambahkan ke PATH jika belum. Jika semua kebutuhan sudah terpenuhi, gunakan cmd di folder tersebut menggunakan admin lalu ketik `main.py`.
