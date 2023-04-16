@@ -202,7 +202,7 @@ def pre_crop(img):
     return img
 
 def math_crop(img):
-    img = img.crop((40, 67, 41+40, 15+67))
+    img = img.crop((29, 67, 53+29, 15+67))
     w, h = img.size
     img = img.resize((w*5, h*5), resample=Image.LANCZOS)
     img.save('./img/text.png')
