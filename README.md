@@ -21,7 +21,7 @@ Setelah GUI muncul, atur beberapa pilihan yang sesuai dengan yang digunakan, dan
 
 # QNA
 Q: Tidak ada input (enter/text), tapi OCR berhasil.\
-A: Coba masuk HQ, ketik sesuatu, keluar. Setelah ini biasanya akan bekerja.
+A: ~~Coba masuk HQ, ketik sesuatu, keluar. Setelah ini biasanya akan bekerja.~~ Setelah diteliti, jalankan script ini dulu, lalu setelah itu jalankan lost saga. Entah kenapa scriptnya tidak bisa input jika lost saga dijalankan duluan.
 
 Q: Di test input, chat box keluar, tapi tidak ada input `abc123`.\
 A: Jika sudah melakukan solusi di atas, ini bug jika memakai `pynput` tetapi masih bekerja jika digunakan untuk menjawab mtk, lebih baik pakai `directinput`.
