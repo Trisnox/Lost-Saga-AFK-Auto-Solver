@@ -16,7 +16,7 @@ Setelah GUI muncul, atur beberapa pilihan yang sesuai dengan yang digunakan, dan
 
 # To-do
 - Resolusi otomatis
-- Kompabilitas (saat ini hanya mtk dari afk saja yang bisa dihitung, selain dari itu kemungkinan gagal)
+- Kompabilitas (mtk dari hasil lobby/speedhack/afk bisa diproses, tapi belum digabungkan)
 - One time usage. Selama dijalankan, hanya akan bekerja jika menekan tombol F7, dan bisa digunakan lagi setelah selesai hingga script dihentikan.
 
 # QNA
