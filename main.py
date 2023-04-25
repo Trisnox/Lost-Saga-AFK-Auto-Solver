@@ -148,12 +148,13 @@ def get_win_ss():
     lso = lso[0]
     hwnd = lso[0]
     
-    # fix fullscreen problem
+    # fix fullscreen problem... I think
     shell = win32com.client.Dispatch("WScript.Shell")
     shell.SendKeys('%')
     
     win32gui.SetForegroundWindow(hwnd)
     bbox = win32gui.GetWindowRect(hwnd)
+    time.sleep(0.4) # bug fix, screenshotting took a few ms before the window swap. Doing too fast cause it to screenshot other window instead of the game.
     img = ImageGrab.grab(bbox)
     if img:
         return img
