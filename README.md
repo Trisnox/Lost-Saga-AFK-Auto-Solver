@@ -14,10 +14,11 @@ Pergi ke [releases](https://github.com/Trisnox/Lost-Saga-AFK-Auto-Solver/release
 
 Setelah GUI muncul, atur beberapa pilihan yang sesuai dengan yang digunakan, dan setelah selesai mengatur, klik tombol `Mulai` atau F6 di keyboard.
 
-# To-do
-- Resolusi otomatis
-- Kompabilitas (saat ini hanya mtk dari afk saja yang bisa dihitung, selain dari itu kemungkinan gagal)
-- One time usage. Selama dijalankan, hanya akan bekerja jika menekan tombol F7, dan bisa digunakan lagi setelah selesai hingga script dihentikan.
+# To-do Priority
+- [High] Resolusi otomatis. Dikarenakan box mtk selalu memiliki ukuran yang sama, code harus di tulis ulang supaya tidak perlu menggunakan resolusi spesifik, hanya penempatannya saja yang berbeda.
+- [High] Failproof. Kemungkinan kecil gagal untuk mtk dari hasil AFK, jika gagal maka box untuk ocr harus diulang dengan koordinasi crop yang berbeda (koordinasi diberikan dari hasil test mtk yang pernah gagal, hanya butuh lebih banyak tes).
+- [Low] One time usage. Selama dijalankan, hanya akan bekerja jika menekan tombol F7, dan bisa digunakan lagi setelah selesai hingga script dihentikan. Ini hanya digunakan untuk para pengguna jitbit macro untuk sinergi macro yang sempurna.
+- [Medium] English translation. Seeing some people actually use this script outside Indonesia (which have huge playerbase, I think?), it would be handy if I were translate it into English.
 
 # QNA
 Q: Tidak ada input (enter/text), tapi OCR berhasil.\
