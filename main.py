@@ -9,21 +9,13 @@ import pydirectinput
 import pynput
 import pytesseract
 import time
+import random
+import requests
+import string
 import tkinter as tk
 import win32gui, win32com.client
 from PIL import Image, ImageGrab, ImageTk
 from tkinter import filedialog, ttk
-
-def is_admin():
-    try:
-        is_admin = (os.getuid() == 0)
-    except AttributeError:
-        is_admin = ctypes.windll.shell32.IsUserAnAdmin() != 0
-    return is_admin
-
-if not is_admin():
-    tk.messagebox.showerror(title='Missing Perms', message='Program tidak di run menggunakan admin. Jika program tidak di run dengan admin, kemungkinan tidak bisa input ke gamenya. Mohon run ulang program dengan admin.')
-    exit()
 
 input_process = None
 main_process = None
@@ -118,6 +110,8 @@ def main():
 
 def math_loop():
     img = get_win_ss()
+    if not img:
+        return False
     img = pre_crop(img)
     
     res = image_search(img, './img/afk1.png')
@@ -126,10 +120,11 @@ def math_loop():
     
     if not res:
         return False
-
+    fn = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(14))
+    img.save(f'img/{fn}.png')
     img = math_crop(img)
 
-    text = ocr()
+    text = ocr(img)
 
     num = ocr_check(text)
 
@@ -145,16 +140,19 @@ def get_win_ss():
     win32gui.EnumWindows(enum_cb, toplist)
 
     lso = [(hwnd, title) for hwnd, title in winlist if 'lost saga in time' in title.lower()]
-    lso = lso[0]
-    hwnd = lso[0]
+    try:
+        lso = lso[0]
+        hwnd = lso[0]
+    except IndexError:
+        return False
     
-    # fix fullscreen problem... I think
+    # fix fullscreen problem... I think?
     shell = win32com.client.Dispatch("WScript.Shell")
     shell.SendKeys('%')
     
     win32gui.SetForegroundWindow(hwnd)
     bbox = win32gui.GetWindowRect(hwnd)
-    time.sleep(0.4) # bug fix, screenshotting took a few ms before the window swap. Doing too fast cause it to screenshot other window instead of the game.
+    time.sleep(0.4)
     img = ImageGrab.grab(bbox)
     if img:
         return img
@@ -203,10 +201,11 @@ def pre_crop(img):
     return img
 
 def math_crop(img):
-    img = img.crop((40, 67, 41+40, 15+67))
+    img = img.crop((29, 65, 53+29, 15+65))
     w, h = img.size
     img = img.resize((w*5, h*5), resample=Image.LANCZOS)
-    img.save('./img/text.png')
+    file_name = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(14))
+    img.save(f'./img/{file_name}.png')
     return img
 
 def image_search(ss, target):
@@ -222,37 +221,46 @@ def image_search(ss, target):
 
     return max_loc
 
-def ocr():
-    img = cv2.imread("img/text.png")
-
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    ret, thresh1 = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU + cv2.THRESH_BINARY)
-
-    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (18, 18))
-
-    dilation = cv2.dilate(thresh1, rect_kernel, iterations = 1)
-
-    contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL,
-                                                     cv2.CHAIN_APPROX_NONE)
-
-    im2 = img.copy()
-
-    for cnt in contours:
-        x, y, w, h = cv2.boundingRect(cnt)
-
-        rect = cv2.rectangle(im2, (x, y), (x + w, y + h), (0, 255, 0), 2)
-
-        cropped = im2[y:y + h, x:x + w]
-
-        text = pytesseract.image_to_string(cropped, config='-c tessedit_char_whitelist=0123456789+- --psm 6 digits')
-        print(text)
-
+# turns out, ocr was much more simpler this way
+def ocr(img):
+    text = pytesseract.image_to_string(img, config='-c tessedit_char_whitelist=0123456789+- --psm 6 digits')
+    print(text)
     return text
+
+
+# def ocr():
+#     global file_name
+#     img = cv2.imread(f"img/{file_name}.png")
+
+#     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+#     ret, thresh1 = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU + cv2.THRESH_BINARY)
+
+#     rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (18, 18))
+
+#     dilation = cv2.dilate(thresh1, rect_kernel, iterations = 1)
+
+#     contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL,
+#                                                      cv2.CHAIN_APPROX_NONE)
+
+#     im2 = img.copy()
+
+#     for cnt in contours:
+#         x, y, w, h = cv2.boundingRect(cnt)
+
+#         rect = cv2.rectangle(im2, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+#         cropped = im2[y:y + h, x:x + w]
+
+#         text = pytesseract.image_to_string(cropped, config='-c tessedit_char_whitelist=0123456789+- --psm 6 digits')
+#         print(text)
+
+#     return text
 
 def ocr_check(result):
     global config
     global pynput_keyboard
+    # rewrite this later for - math operation
     filtered = result.split('+')
     try:
         num1 = filtered[0]
@@ -390,6 +398,29 @@ def tesseract_set():
         tesseract_loc.set(filename)
 
 if __name__ == '__main__': # stupid multiprocessing
+    def version_check():
+        version = "0.4"
+        response = requests.get("https://api.github.com/repos/Trisnox/Lost-Saga-AFK-Auto-Solver/releases/latest").json()
+        if version != response['tag_name']:
+            tk.messagebox.showinfo("Newer Version Available", f"Versi terbaru ({response['tag_name']}) telah dirilis. Kunjungi repo untuk info lebih lanjut.\n\nRepo: https://github.com/Trisnox/Lost-Saga-AFK-Auto-Solver")
+
+    try:
+        version_check()
+    except requests.ConnectionError:
+        print('Gagal untuk mengecek versi script. Mohon cek koneksi.')
+
+
+    def is_admin():
+        try:
+            is_admin = (os.getuid() == 0)
+        except AttributeError:
+            is_admin = ctypes.windll.shell32.IsUserAnAdmin() != 0
+        return is_admin
+
+    if not is_admin():
+        tk.messagebox.showerror(title='Missing Perms', message='Program tidak di run menggunakan admin. Jika program tidak di run dengan admin, kemungkinan tidak bisa input ke gamenya. Mohon run ulang program dengan admin.')
+        exit()
+
     window = tk.Tk()
     s = ttk.Style(window)
 
@@ -478,7 +509,7 @@ if __name__ == '__main__': # stupid multiprocessing
     contact_info = ttk.Label(mainframe, text='Creator: K·#4963 (discord)\nUntuk minta bantuan/pertanyaan\nbisa langsung tanya di DM.')
     contact_info.grid(row=10, column=1, sticky=tk.W+tk.S)
 
-    version_label = ttk.Label(mainframe, text='Versi 0.3', foreground='blue', font=('', 7))
+    version_label = ttk.Label(mainframe, text='Versi 0.4', foreground='blue', font=('', 7))
     version_label.grid(row=12, column=1, sticky=tk.W+tk.S)
     
     resolution_input = tk.StringVar(value=config.get('resolution', '1280x720'))

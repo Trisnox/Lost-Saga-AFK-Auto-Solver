@@ -10,15 +10,18 @@ Macro untuk menyelesaikan mtk yang disebabkan oleh afk. Sebagai alternatif untuk
 Setelah script dijalankan, script akan screenshot setiap beberapa detik yang ditentukan, jika menemukan box mtk maka script ini akan membaca dan menjawab pertanyaan tersebut.
 
 # Cara Pemakaian
+Install [python](https://www.python.org/downloads/), versi yang mana saja boleh (rekomendasi: 3.7>). Untuk windows 7, gunakan [versi 3.8.6](https://www.python.org/downloads/release/python-386/). Untuk windows XP, gunakan [versi 3.4.3](https://www.python.org/downloads/release/python-343/)
+
 Pergi ke [releases](https://github.com/Trisnox/Lost-Saga-AFK-Auto-Solver/releases) dan pilih versi, lalu ekstrak file. Pastikan semua package sudah di install, jika belum jalankan cmd di folder tersebut lalu ketik `pip install -U -r requirements.txt` untuk install semua package yang dibutuhkan. Setelah itu install juga [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki) dan tambahkan ke PATH jika belum. Jika semua kebutuhan sudah terpenuhi, gunakan cmd di folder tersebut menggunakan admin lalu ketik `main.py`.
 
 Setelah GUI muncul, atur beberapa pilihan yang sesuai dengan yang digunakan, dan setelah selesai mengatur, klik tombol `Mulai` atau F6 di keyboard.
 
 # To-do Priority
 - [High] Resolusi otomatis. Dikarenakan box mtk selalu memiliki ukuran yang sama, code harus di tulis ulang supaya tidak perlu menggunakan resolusi spesifik, hanya penempatannya saja yang berbeda.
-- [High] Failproof. Kemungkinan kecil gagal untuk mtk dari hasil AFK, jika gagal maka box untuk ocr harus diulang dengan koordinasi crop yang berbeda (koordinasi diberikan dari hasil test mtk yang pernah gagal, hanya butuh lebih banyak tes).
+- [Low] Failproof. Karena adanya versi baru, setelah di tes, 100% dari 300+ gambar hasil percobaan berhasil semua, mungkin butuh lebih banyak tes. Karena script ini mengulang mtk tersebut jika tidak bisa dibaca, ini mungkin tidak dibutuhkan, kecuali kemungkinan gagal bacanya tinggi maka akan dicoba dibuatkan failproof.
 - [Low] One time usage. Selama dijalankan, hanya akan bekerja jika menekan tombol F7, dan bisa digunakan lagi setelah selesai hingga script dihentikan. Ini hanya digunakan untuk para pengguna jitbit macro untuk sinergi macro yang sempurna.
 - [Medium] English translation. Seeing some people actually use this script outside Indonesia (which have huge playerbase, I think?), it would be handy if I were translate it into English.
+- [Low] (Jika memungkinkan) Bundle script ke dalam bentuk exe. Dengan ini, tidak perlu install python, cukup tesseract saja.
 
 # QNA
 Q: Tidak ada input (enter/text), tapi OCR berhasil.\
