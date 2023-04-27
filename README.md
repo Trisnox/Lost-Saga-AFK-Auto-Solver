@@ -35,8 +35,8 @@ A: After you tried the solution above, this is a bug with `pynput`. However, it'
 
 Q: It only prints `OCR failed to identify numbers, retrying`.\
 A: It can be either\
-   - The game window is partially cropped. When you use the `test screenshot` button, this is an example of a [good screenshot](https://media.discordapp.net/attachments/1097099248329306122/1097156717210501130/image.png), and this is an example of a [bad screenshot](https://media.discordapp.net/attachments/1097099248329306122/1097156850127999128/image.png) (notice how the bad screenshot had its top window blacked out, it is likely because the game resolution is higher than the desktop screen resolution)
-   - Using incorrect resolution
+   - The game window is partially cropped. When you use the `test screenshot` button, this is an example of a [good screenshot](https://media.discordapp.net/attachments/1097099248329306122/1097156717210501130/image.png), and this is an example of a [bad screenshot](https://media.discordapp.net/attachments/1097099248329306122/1097156850127999128/image.png) (notice how the bad screenshot had its top window blacked out, it is likely because the game resolution is higher than the desktop screen resolution)\
+   - Using incorrect resolution\
    - Using incorrect window mode
    
    This problem might be fixed by the time the automatic resolution check has been released.
