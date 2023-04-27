@@ -5,37 +5,46 @@ https://user-images.githubusercontent.com/66292369/214657905-d0662b63-b1b0-4a06-
 
 
 # Lost-Saga-AFK-Auto-Solver
-Macro untuk menyelesaikan mtk yang disebabkan oleh afk. Sebagai alternatif untuk rtl.
+A macro to solve math that were caused by afk/speedhack/lobby lock. As an alternative for rtl (ritual).
 
-Setelah script dijalankan, script akan screenshot setiap beberapa detik yang ditentukan, jika menemukan box mtk maka script ini akan membaca dan menjawab pertanyaan tersebut.
+After the script has been run, it will take a screenshot after each interval that has been provided. If the script finds the math box, then this script will read and answer that math.
 
-# Cara Pemakaian
-Install [python](https://www.python.org/downloads/), versi yang mana saja boleh (rekomendasi: 3.7>). Untuk windows 7, gunakan [versi 3.8.6](https://www.python.org/downloads/release/python-386/). Untuk windows XP, gunakan [versi 3.4.3](https://www.python.org/downloads/release/python-343/)
+This version has no difference from the main branch, only English translation is provided on this version.
 
-Pergi ke [releases](https://github.com/Trisnox/Lost-Saga-AFK-Auto-Solver/releases) dan pilih versi, lalu ekstrak file. Pastikan semua package sudah di install, jika belum jalankan cmd di folder tersebut lalu ketik `pip install -U -r requirements.txt` untuk install semua package yang dibutuhkan. Setelah itu install juga [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki) dan tambahkan ke PATH jika belum. Jika semua kebutuhan sudah terpenuhi, gunakan cmd di folder tersebut menggunakan admin lalu ketik `main.py`.
+# Usage
+Install [python](https://www.python.org/downloads/), any version will do (recommended: 3.7>). For Windows 7, use [version 3.8.6](https://www.python.org/downloads/release/python-386/). For Windows XP, use [version 3.4.3](https://www.python.org/downloads/release/python-343/)
 
-Setelah GUI muncul, atur beberapa pilihan yang sesuai dengan yang digunakan, dan setelah selesai mengatur, klik tombol `Mulai` atau F6 di keyboard.
+Go to [releases](https://github.com/Trisnox/Lost-Saga-AFK-Auto-Solver/releases) and choose version, then extract the file. Make sure all Python packages have been installed. If not, then run command prompt on that folder and type `pip install -U -r requirements.txt` to install all the required packages.
 
-# To-do Priority
-- [High] Resolusi otomatis. Dikarenakan box mtk selalu memiliki ukuran yang sama, code harus di tulis ulang supaya tidak perlu menggunakan resolusi spesifik, hanya penempatannya saja yang berbeda.
-- [Low] Failproof. Karena adanya versi baru, setelah di tes, 100% dari 300+ gambar hasil percobaan berhasil semua, mungkin butuh lebih banyak tes. Karena script ini mengulang mtk tersebut jika tidak bisa dibaca, ini mungkin tidak dibutuhkan, kecuali kemungkinan gagal bacanya tinggi maka akan dicoba dibuatkan failproof.
-- [Low] One time usage. Selama dijalankan, hanya akan bekerja jika menekan tombol F7, dan bisa digunakan lagi setelah selesai hingga script dihentikan. Ini hanya digunakan untuk para pengguna jitbit macro untuk sinergi macro yang sempurna.
-- [Medium] English translation. Seeing some people actually use this script outside Indonesia (which have huge playerbase, I think?), it would be handy if I were translate it into English.
-- [Low] (Jika memungkinkan) Bundle script ke dalam bentuk exe. Dengan ini, tidak perlu install python, cukup tesseract saja.
+After that, install [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki), adding it to PATH is optional.
+
+When all requirements have been met, use command prompt on that folder using admin privileges, then type `main.py`. When GUI appears, set the options as required, after you have set them, click the `start` button or `F6` on the keyboard.
+
+# To-Do Priority
+- [High] Automatic resolution. Since the math box always had the same size, the code must be rewritten so that it doesn't require a specific resolution, only the offsets are different on each resolution.
+- [Low] Failproof. Ever since the latest version release, after a test, 100% out of 300+ images succeeded, it might require more tests. Since this script retries the math box if it cannot be read, this might not be required, except if the fail probability is high, then I will try to create a failproof method.
+- [Low] One time usage. After being run, it only works if `F7` button is pressed and can be processed again until this script has been stopped. This is only made to synergize with jitbit macro recorder in order to create perfect macros with no math disturbance.
+- [Low] If possible, I will bundle this script into an executable. This way, installing Python won't be needed, only Tesseract is required to be installed.
 
 # QNA
-Q: Tidak ada input (enter/text), tapi OCR berhasil.\
-A: ~~Coba masuk HQ, ketik sesuatu, keluar. Setelah ini biasanya akan bekerja.~~ Setelah diteliti, jalankan script ini dulu, lalu setelah itu jalankan lost saga. Entah kenapa scriptnya tidak bisa input jika lost saga dijalankan duluan.
+Q: No input (enter/text), but OCR succeeded.\
+A: ~~Try entering HQ, type something, and out. After this, it will usually work. ~~ After some research, run this script first, then run Lost Saga. I don't know why this script won't send input if Lost Saga is run first.
 
-Q: Di test input, chat box keluar, tapi tidak ada input `abc123`.\
-A: Jika sudah melakukan solusi di atas, ini bug jika memakai `pynput` tetapi masih bekerja jika digunakan untuk menjawab mtk, lebih baik pakai `directinput`.
+Q: On test input, `Enter` is pressed, but there is no `abc123` input.\
+A: After you tried the solution above, this is a bug with `pynput`. However, it'll work fine for answering the math box, it is better to use `directinput`.
 
-Q: Bisa dipakai di lost saga client bahasa lain?\
-A: Hanya untuk lost saga bahasa indonesia/inggris. Jika ingin pakai di client lain, screenshot kotak afk ([biasanya terlihat seperti ini](https://user-images.githubusercontent.com/66292369/215278517-69c7bb1f-1e73-4344-ad33-2d9b5de5663d.png)), crop tombol `enter` lalu tukar dengan komponen yang ada di folder `img`. Jika masih tidak bisa mungkin harus modifikasi script.
+Q: It only prints `OCR failed to identify numbers, retrying`.\
+A: It can be either\
+   - The game window is partially cropped. When you use the `test screenshot` button, this is an example of a [good screenshot](https://media.discordapp.net/attachments/1097099248329306122/1097156717210501130/image.png), and this is an example of a [bad screenshot](https://media.discordapp.net/attachments/1097099248329306122/1097156850127999128/image.png) (notice how the bad screenshot had its top window blacked out, it is likely because the game resolution is higher than the desktop screen resolution)
+   - Using incorrect resolution
+   - Using incorrect window mode
+   
+   This problem might be fixed by the time the automatic resolution check has been released.
+
+Q: Can it be used on other Lost Saga clients with different languages? \
+A: Only for English/Indonesian clients. If you want to use it on another client, screenshot the math box ([usually looks like this](https://user-images.githubusercontent.com/66292369/215278517-69c7bb1f-1e73-4344-ad33-2d9b5de5663d.png)), crop the `enter` button, and then swap the component inside the `img` folder. If it doesn't work, then script modification might be needed.
 
 Q: Error: `ModuleNotFoundError: No module named '...'`\
-A: 2 kemungkinan.\
-   1, belum install modul menggunakan `pip install -r requirements.txt`\
-   2, punya lebih dari 1 versi python berbeda, bisa di cek menggunakan `py -0`, lalu gunakan versi specifik menggunakan `py -versi.python`, contoh: `py -3.10-64 main.py`.
-  
-   
+A: 2 possibilities.\
+   1, haven't installed the module using `pip install -r requirements.txt`\
+   2, have more than 1 Python version, you can check it using `py -0`. To use a specific version, type `py -python.version`, example: `py -3.10-64 main.py`
