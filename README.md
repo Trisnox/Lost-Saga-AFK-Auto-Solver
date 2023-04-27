@@ -35,7 +35,7 @@ A: Jika sudah melakukan solusi di atas, ini bug jika memakai `pynput` tetapi mas
 Q: Script hanya print `OCR gagal mengidentifikasi seluruh nomor, mencoba ulang`\
 A: Bisa jadi karena
    - Window Lost Saga kepotong. Jika pencet tombol `test screenshot`, ini adalah contoh [screenshot yang bagus](https://media.discordapp.net/attachments/1097099248329306122/1097156717210501130/image.png), dan ini adalah contoh [screenshot yang jelek](https://media.discordapp.net/attachments/1097099248329306122/1097156850127999128/image.png) (lihat bagaimana window bagian atas Lost Saga kepotong, ini dikarenakan resolusi Lost Saga lebih besar daripada resolusi desktop)
-   - Menggunakan resolusi yang salah\
+   - Menggunakan resolusi yang salah
    - Menggunakan mode window yang salah
    
    Masalah ini mungkin akan diperbaiki saat resolusi otomatis dirilis.
