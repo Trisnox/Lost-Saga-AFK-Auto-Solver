@@ -28,7 +28,7 @@ When all requirements have been met, use command prompt on that folder using adm
 
 # QNA
 Q: No input (enter/text), but OCR succeeded.\
-A: ~~Try entering HQ, type something, and out. After this, it will usually work. ~~ After some research, run this script first, then run Lost Saga. I don't know why this script won't send input if Lost Saga is run first.
+A: ~~Try entering HQ, type something, and out. After this, it will usually work.~~ After some research, run this script first, then run Lost Saga. I don't know why this script won't send input if Lost Saga is run first.
 
 Q: On test input, `Enter` is pressed, but there is no `abc123` input.\
 A: After you tried the solution above, this is a bug with `pynput`. However, it'll work fine for answering the math box, it is better to use `directinput`.
