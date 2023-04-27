@@ -84,7 +84,7 @@ def on_release(key):
 def main():
     global config
     global pynput_keyboard
-    print('Script telah dimulai')
+    print('Script has been started')
     pytesseract.pytesseract.tesseract_cmd = config['tesseract']
     u_input = config['input']
 
@@ -268,7 +268,7 @@ def ocr_check(result):
         num2 = filtered[1]
         int(num2)
     except (ValueError, IndexError):
-        print('OCR gagal mengidentifikasi seluruh nomor, mencoba ulang')
+        print('OCR failed to identify numbers, retrying')
         u_input = config['input']
         if u_input == 'directinput':
             pydirectinput.press('1')
@@ -304,13 +304,13 @@ def toggle_script():
         interval_input.set(interval_entry.get())
         
         if not tesseract_loc.get():
-            tk.messagebox.showerror(title='Invalid', message='Lokasi Tesseract tidak bisa kosong')
+            tk.messagebox.showerror(title='Invalid', message='Tesseract location cannot be empty')
             return False
         
         try:
             float(interval_input.get())
         except ValueError:
-            tk.messagebox.showerror(title='Invalid', message='Interval harus berupa int atau float')
+            tk.messagebox.showerror(title='Invalid', message='Interval must be a number (integer or float)')
             return False
         
         config['tesseract'] = tesseract_loc.get().replace('/', '\\')
@@ -331,7 +331,7 @@ def toggle_script():
         main_process.terminate()
         toggle = False
         main_process = None
-        print('Script telah dihentikan')
+        print('Script has been stopped')
         toggle_button.config(text='Mulai')
 
 def test_input_button():
@@ -347,7 +347,7 @@ def test_input_button():
     pop_up.title('')
 
     
-    pic_label = ttk.Label(pop_up, text='Setelah klik ok, fokuskan window ke lost saga dan tunggu beberapa detik.\nJika chat box muncul seperti ini, berarti input bisa digunakan')
+    pic_label = ttk.Label(pop_up, text='After pressing ok, focus your window to lost saga and wait a few seconds.\nIf chat box appear like this, it means the input is working fine')
     pic_label.grid(row=1, column=2)
 
     image = ImageLabel(pop_up)
@@ -382,7 +382,7 @@ def the_actual_input():
         controller.type('abc123')
 
 def test_screenshot():
-    tk.messagebox.showinfo(message='Setelah klik ok, fokuskan window ke Lost Saga lalu tunggu beberapa detik. Setelah lebih dari 5/6 detik, screenshot akan muncul di folder img')
+    tk.messagebox.showinfo(message='After pressing ok, focus your window to lost saga then wait a few seconds. After more than 5/6 seconds, screenshot will appear at img folder')
     time.sleep(5)
 
     img = get_win_ss()
@@ -390,7 +390,7 @@ def test_screenshot():
     if img:
         img.save('./img/ss.png')
     else:
-        tk.messagebox.showwarning(title='Warning', message='Tidak dapat screenshot Lost Saga karena proses tidak ditemukan')
+        tk.messagebox.showwarning(title='Warning', message='Cannot take screenshot from Lost Saga because the process is not found')
 
 def tesseract_set():
     filename = filedialog.askopenfilename(initialdir = "/",title = "Select A File",filetype = (("exe","*.exe"),("All Files","*.*")))
@@ -402,12 +402,12 @@ if __name__ == '__main__': # stupid multiprocessing
         version = "0.4"
         response = requests.get("https://api.github.com/repos/Trisnox/Lost-Saga-AFK-Auto-Solver/releases/latest").json()
         if version != response['tag_name']:
-            tk.messagebox.showinfo("Newer Version Available", f"Versi terbaru ({response['tag_name']}) telah dirilis. Kunjungi repo untuk info lebih lanjut.\n\nRepo: https://github.com/Trisnox/Lost-Saga-AFK-Auto-Solver")
+            tk.messagebox.showinfo("Newer Version Available", f"Latest version ({response['tag_name']}) have been released. Visit the repo for more info.\n\nRepo: https://github.com/Trisnox/Lost-Saga-AFK-Auto-Solver\n\nEnglish repo: https://github.com/Trisnox/Lost-Saga-AFK-Auto-Solver/tree/english")
 
     try:
         version_check()
     except requests.ConnectionError:
-        print('Gagal untuk mengecek versi script. Mohon cek koneksi.')
+        print('Failed to check updates. Please check your connection.')
 
 
     def is_admin():
@@ -418,7 +418,7 @@ if __name__ == '__main__': # stupid multiprocessing
         return is_admin
 
     if not is_admin():
-        tk.messagebox.showerror(title='Missing Perms', message='Program tidak di run menggunakan admin. Jika program tidak di run dengan admin, kemungkinan tidak bisa input ke gamenya. Mohon run ulang program dengan admin.')
+        tk.messagebox.showerror(title='Missing Perms', message='Program is not run with admin privileges. If program is not run with admin, it will unable to send input to the game. Please rerun script with admin privilege.')
         exit()
 
     window = tk.Tk()
@@ -443,7 +443,7 @@ if __name__ == '__main__': # stupid multiprocessing
         for col_index in range(4):
             tk.Grid.columnconfigure(mainframe, col_index, weight=1)
 
-    tesseract_label = ttk.Label(mainframe, compound=tk.RIGHT, text='Lokasi Tesseract')
+    tesseract_label = ttk.Label(mainframe, compound=tk.RIGHT, text='Tesseract location')
     tesseract_label.grid(row=1, column=1, sticky=tk.E)
 
     tesseract_loc = tk.StringVar(value=config.get('tesseract', ''))
@@ -456,20 +456,20 @@ if __name__ == '__main__': # stupid multiprocessing
 
     interval_input = tk.StringVar(value=config.get('interval', '5'))
 
-    interval_label = ttk.Label(mainframe, text='Interval screenshot (dalam detik)')
+    interval_label = ttk.Label(mainframe, text='Screenshot interval (in seconds)')
     interval_label.grid(row=2, column=1, sticky=tk.E)
 
     interval_entry = ttk.Entry(mainframe, width=5, textvariable=interval_input)
     interval_entry.grid(row=2, column=2, sticky=tk.W)
 
-    interval_note = ttk.Label(mainframe, text='Masukkan 0 untuk screenshot\nsesegeranya, tidak direkomendasikan', foreground='red', font=('', 7))
+    interval_note = ttk.Label(mainframe, text='Enter 0 to screenshot\nimmediately but is not recommended', foreground='red', font=('', 7))
     interval_note.grid(row=2, column=3, sticky=tk.W+tk.S)
 
     ttk.Label(mainframe, text='').grid(row=3, column=1)
 
     fix_input = tk.StringVar(value=config.get('fix', 'n'))
 
-    fix_label = ttk.Label(mainframe, text='Fix (untuk yang tidak work\ndi script namun work di jitbit)')
+    fix_label = ttk.Label(mainframe, text="Fix (for those input doesn't work\non this script but does work on jitbit macro recorder)")
     fix_label.configure(anchor='center')
     fix_label.grid(row=4, column=1)
 
@@ -478,7 +478,7 @@ if __name__ == '__main__': # stupid multiprocessing
 
     input_input = tk.StringVar(value=config.get('input', 'directinput'))
 
-    input_label = ttk.Label(mainframe, text='Tipe input')
+    input_label = ttk.Label(mainframe, text='Input type')
     input_label.grid(row=4, column=2)
 
     ttk.Radiobutton(mainframe, text='Default (Pynput)', value='default', variable=input_input).grid(row=5, column=2)
@@ -486,7 +486,7 @@ if __name__ == '__main__': # stupid multiprocessing
 
     window_input = tk.StringVar(value=config.get('window', 'window'))
 
-    window_label = ttk.Label(mainframe, text='Mode window')
+    window_label = ttk.Label(mainframe, text='Window mode')
     window_label.grid(row=4, column=3)
 
     ttk.Radiobutton(mainframe, text='Fullscreen', value='full', variable=window_input).grid(row=5, column=3)
@@ -494,27 +494,27 @@ if __name__ == '__main__': # stupid multiprocessing
 
     ttk.Label(mainframe, text='').grid(row=7, column=2)
 
-    toggle_button = ttk.Button(mainframe, text='Mulai', width=15, command=lambda:toggle_script())
+    toggle_button = ttk.Button(mainframe, text='Start', width=15, command=lambda:toggle_script())
     toggle_button.grid(row=8, column=2)
 
-    toggle_label = ttk.Label(mainframe, text='F6 shortcut untuk mulai/stop', foreground='green')
+    toggle_label = ttk.Label(mainframe, text='F6 shortcut to toggle start/stop', foreground='green')
     toggle_label.grid(row=8, column=3, sticky=tk.W)
 
-    input_test_button = ttk.Button(mainframe, text='Test input', width=15, command=lambda:test_input_button())
+    input_test_button = ttk.Button(mainframe, text='Input test', width=15, command=lambda:test_input_button())
     input_test_button.grid(row=8, column=1)
 
-    ss_test_button = ttk.Button(mainframe, text='Test screenshot', width=15, command=lambda:test_screenshot())
+    ss_test_button = ttk.Button(mainframe, text='Screenshot test', width=15, command=lambda:test_screenshot())
     ss_test_button.grid(row=9, column=1)
 
-    contact_info = ttk.Label(mainframe, text='Creator: K·#4963 (discord)\nUntuk minta bantuan/pertanyaan\nbisa langsung tanya di DM.')
+    contact_info = ttk.Label(mainframe, text='Creator: K·#4963 (discord)\nFor assistance, you can ask through direct messages.')
     contact_info.grid(row=10, column=1, sticky=tk.W+tk.S)
 
-    version_label = ttk.Label(mainframe, text='Versi 0.4', foreground='blue', font=('', 7))
+    version_label = ttk.Label(mainframe, text='Version 0.4', foreground='blue', font=('', 7))
     version_label.grid(row=12, column=1, sticky=tk.W+tk.S)
     
     resolution_input = tk.StringVar(value=config.get('resolution', '1280x720'))
 
-    reso_label = ttk.Label(mainframe, text='Resolusi window')
+    reso_label = ttk.Label(mainframe, text='Window resolution')
     reso_label.grid(row=4, column=4)
 
     resolutions = ['800x600', '1024x768', '1280x720', '1280x1024', '1600x900', '1680x1050', '1920x1080']
