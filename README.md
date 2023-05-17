@@ -7,6 +7,9 @@ https://user-images.githubusercontent.com/66292369/214657905-d0662b63-b1b0-4a06-
 # English Translation
 If you want to view the English repo, visit [here](https://github.com/Trisnox/Lost-Saga-AFK-Auto-Solver/tree/english)
 
+# Catatan Penting
+Keamanan akun ditanggung sendiri. Menggunakan script/bot/macro melanggar [ketentuan VALOFE](https://vfun.valofe.com/customer/g_pc_terms).
+
 # Lost-Saga-AFK-Auto-Solver
 Macro untuk menyelesaikan mtk yang disebabkan oleh afk. Sebagai alternatif untuk rtl.
 
