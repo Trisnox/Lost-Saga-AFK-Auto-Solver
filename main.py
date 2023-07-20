@@ -399,7 +399,7 @@ def tesseract_set():
 
 if __name__ == '__main__': # stupid multiprocessing
     def version_check():
-        version = "0.4"
+        version = "0.4.1"
         response = requests.get("https://api.github.com/repos/Trisnox/Lost-Saga-AFK-Auto-Solver/releases/latest").json()
         if version != response['tag_name']:
             tk.messagebox.showinfo("Newer Version Available", f"Latest version ({response['tag_name']}) have been released. Visit the repo for more info.\n\nRepo: https://github.com/Trisnox/Lost-Saga-AFK-Auto-Solver\n\nEnglish repo: https://github.com/Trisnox/Lost-Saga-AFK-Auto-Solver/tree/english")
