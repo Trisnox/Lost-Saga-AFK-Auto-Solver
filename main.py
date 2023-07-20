@@ -15,7 +15,7 @@ import string
 import tkinter as tk
 import win32gui, win32com.client
 from PIL import Image, ImageGrab, ImageTk
-from tkinter import filedialog, ttk
+from tkinter import filedialog, ttk, messagebox
 
 input_process = None
 main_process = None
@@ -506,10 +506,10 @@ if __name__ == '__main__': # stupid multiprocessing
     ss_test_button = ttk.Button(mainframe, text='Screenshot test', width=15, command=lambda:test_screenshot())
     ss_test_button.grid(row=9, column=1)
 
-    contact_info = ttk.Label(mainframe, text='Creator: K·#4963 (discord)\nFor assistance, you can ask through direct messages.')
+    contact_info = ttk.Label(mainframe, text='Creator: trisnox (discord)\nFor assistance, you can ask through my support server https://discord.gg/GJ2P6u4edG')
     contact_info.grid(row=10, column=1, sticky=tk.W+tk.S)
 
-    version_label = ttk.Label(mainframe, text='Version 0.4', foreground='blue', font=('', 7))
+    version_label = ttk.Label(mainframe, text='Version 0.4.1', foreground='blue', font=('', 7))
     version_label.grid(row=12, column=1, sticky=tk.W+tk.S)
     
     resolution_input = tk.StringVar(value=config.get('resolution', '1280x720'))
