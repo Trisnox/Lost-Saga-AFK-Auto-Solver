@@ -5,3 +5,4 @@ pynput
 pytesseract
 pywin32
 Pillow
+requests
