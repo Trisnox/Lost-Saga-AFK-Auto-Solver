@@ -10,6 +10,9 @@ If you want to view the English repo, visit [here](https://github.com/Trisnox/Lo
 # Catatan Penting
 Keamanan akun ditanggung sendiri. Menggunakan script/bot/macro melanggar [ketentuan VALOFE](https://vfun.valofe.com/customer/g_pc_terms).
 
+# Support Server
+https://discord.gg/GJ2P6u4edG
+
 # Lost-Saga-AFK-Auto-Solver
 Macro untuk menyelesaikan mtk yang disebabkan oleh afk. Sebagai alternatif untuk rtl.
 
