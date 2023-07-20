@@ -7,6 +7,9 @@ https://user-images.githubusercontent.com/66292369/214657905-d0662b63-b1b0-4a06-
 # DISCLAIMER
 Using macro/bot/script is against [VALOFE terms](https://vfun.valofe.com/customer/g_pc_terms), do so at your own risk.
 
+# Support Server
+https://discord.gg/GJ2P6u4edG
+
 # Lost-Saga-AFK-Auto-Solver
 A macro to solve math that were caused by afk/speedhack/lobby lock. As an alternative for rtl (ritual).
 
